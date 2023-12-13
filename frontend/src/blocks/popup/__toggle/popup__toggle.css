@@ -1,0 +1,22 @@
+.popup__toggle {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  background-image: url('../../../images/CloseIcon.png');
+  background-size: contain;
+}
+
+@media screen and (max-width: 320px) {
+  .popup__toggle {
+    width: 20px;
+    height: 20px;
+    top: -36px;
+    right: 0;
+  }
+}

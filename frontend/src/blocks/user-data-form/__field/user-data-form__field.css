@@ -1,0 +1,5 @@
+.user-data-form__field {
+    position: relative;
+    min-height: 27px;
+    color: rgba(204, 204, 204, 1);
+}

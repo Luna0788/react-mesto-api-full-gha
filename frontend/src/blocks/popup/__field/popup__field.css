@@ -1,0 +1,5 @@
+.popup__field {
+  position: relative;
+  min-height: 44px;
+  padding-bottom: 12px;
+}

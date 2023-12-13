@@ -1,0 +1,7 @@
+.button_type_save {
+  padding: 14px 0;
+}
+
+.button_type_save:hover {
+  opacity: .8;
+}

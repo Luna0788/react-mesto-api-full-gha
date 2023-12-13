@@ -1,0 +1,10 @@
+.user-data-form__button {
+    padding: 14px 0;
+    border-radius: 2px;
+    background: #FFF;
+    color: #000;
+}
+
+.button:hover{
+    opacity: 0.85;
+  }

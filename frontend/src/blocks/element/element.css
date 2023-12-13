@@ -1,0 +1,11 @@
+.element {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 282px;
+  height: 361px;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  color: #000;
+}

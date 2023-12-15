@@ -128,7 +128,7 @@ function App() {
           // if (data.token) {
           //   localStorage.setItem('jwt', data.token);
           if (data) {
-            localStorage.setItem("authorized", "true");
+            localStorage.setItem("userId", data._id);
             setIsLoggedIn(true);
             setUserEmail(email);
             navigate("/", {replace: true});
@@ -159,23 +159,25 @@ function App() {
   //   }
   // }
 
-  function handleTokenCheck() {
-    const authorized = localStorage.getItem("authorized");
-    if (authorized) {
-      api
-        .getUserInfo()
-        .then((userData) => {
-          setUserEmail(userData.email);
-          setIsLoggedIn(true);
-          navigate("/", {replace: true});
-        })
-        .catch((err) => {
-            localStorage.removeItem("authorized");
-            console.log(err);
-        });
-      
-    }
-  };
+  // как было раньше
+  // function handleTokenCheck() {
+  //   if (localStorage.getItem("userId")){
+  //     const userId = localStorage.getItem("userId");
+  //     if (userId) {
+  //       api
+  //         .getUserInfo()
+  //         .then((userData) => {
+  //           setUserEmail(userData.email);
+  //           setIsLoggedIn(true);
+  //           navigate("/", {replace: true});
+  //         })
+  //         .catch((err) => {
+  //             localStorage.removeItem("userId");
+  //             console.log(err);
+  //         });
+  //     };
+  //   };
+  // };
 
 
 
@@ -183,7 +185,7 @@ function App() {
     auth
       .signout()
       .then(() => {
-        localStorage.removeItem("authorized");
+        localStorage.removeItem("userId");
         setIsLoggedIn(false);
         navigate("/sign-in", {replace: true});
       })
@@ -202,16 +204,30 @@ function App() {
   const [userEmail, setUserEmail] = React.useState("");
   
   React.useEffect(() => {
-    handleTokenCheck();
+    // const userId = localStorage.getItem("userId");
+    // if (userId) {
+      auth.checkToken()
+          .then((res) => {
+              localStorage.setItem("userId", res._id);
+              setIsLoggedIn(true);
+              setUserEmail(res.email);
+              navigate("/", {replace: true});
+          })
+          .catch((err) => {
+            localStorage.getItem("userId");
+            console.log(err);
+          });
+    // }
   }, []);
 
 
   React.useEffect(() => {
-    if(isLoggedIn) {
+    const userId = localStorage.getItem("userId");
+    if(userId) {
       Promise.all([api.getUserInfo() ,api.getInitialCards()])
         .then(([userData, initialCards]) => {
           setCurrentUser(userData);
-          setCards(initialCards);
+          setCards(initialCards.reverse());
         })
         .catch((err) => {
           console.log(err);

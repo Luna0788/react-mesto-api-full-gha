@@ -1,10 +1,10 @@
 const apiOptions = {
-  baseUrl: "http://localhost:3000",
-  credentials: 'include',
+  baseUrl: "http://localhost:3001",
+  // credentials: 'include',
   headers: {
   //   authorization: "eeea63f2-ab02-4294-9d67-84220d1763e5",
     "Content-Type": "application/json",
-    // "Accept":"application/json",
+    "Accept":"application/json",
   },
 };
 
@@ -13,7 +13,7 @@ class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
     this._headers = options.headers;
-    this._credentials = options.credentials;
+    // this._credentials = options.credentials;
   }
 
   //проверка наличия ошибок, возвращает json если ОК и сообщение об ошибке, если не ОК
@@ -58,7 +58,6 @@ class Api {
 
   //Добавление новой карточки
   postNewCard({ name, link }) {
-    console.log(JSON.stringify({ name, link }));
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,

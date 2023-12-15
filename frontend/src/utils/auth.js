@@ -1,6 +1,6 @@
-export const BASE_URL = 'http://localhost:3000';
+export const BASE_URL = 'http://localhost:3001';
 // export  { register, authorize, checkToken };
-export  { register, authorize, signout };
+export  { register, authorize, signout, checkToken };
 
 function checkResult(res) {
     if (res.ok) {
@@ -27,6 +27,7 @@ function authorize (email, password) {
         method: "POST",
         credentials: "include",
         headers: {
+            "Accept": "application/json",
             "Content-Type": "application/json"
         },
         body: JSON.stringify({ email, password }),
@@ -45,13 +46,15 @@ function signout () {
     .then((res) => checkResult(res))
 }
 
-// function checkToken(token) {
-//     return fetch(`${BASE_URL}/users/me`, {
-//         method: "GET",
-//         headers: {
-//             "Content-Type": "application/json",
-//             "Authorization" : `Bearer ${token}`
-//         },
-//     })
-//     .then((res) => checkResult(res))
-// }
+function checkToken() {
+    return fetch(`${BASE_URL}/users/me`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            // "Authorization" : `Bearer ${token}`
+        },
+    })
+    .then((res) => checkResult(res))
+}

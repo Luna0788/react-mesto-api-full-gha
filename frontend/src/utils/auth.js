@@ -1,5 +1,5 @@
 export const BASE_URL = 'http://localhost:3000';
-// export  { register, authorize, checkToken };
+
 export  { register, authorize, signout, checkToken };
 
 function checkResult(res) {
@@ -53,7 +53,6 @@ function checkToken() {
         headers: {
             "Accept": "application/json",
             "Content-Type": "application/json",
-            // "Authorization" : `Bearer ${token}`
         },
     })
     .then((res) => checkResult(res))

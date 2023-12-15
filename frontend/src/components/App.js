@@ -125,8 +125,6 @@ function App() {
   function handleLogin (email, password) {
     auth.authorize(email, password)
         .then((data) => {
-          // if (data.token) {
-          //   localStorage.setItem('jwt', data.token);
           if (data) {
             localStorage.setItem("userId", data._id);
             setIsLoggedIn(true);
@@ -141,45 +139,6 @@ function App() {
           console.log(err);
         })
   }
-
-  // function handleTokenCheck() {
-  //   if (localStorage.getItem("jwt")){
-  //     const token = localStorage.getItem("jwt");
-  //     auth.checkToken(token)
-  //         .then((res) => {
-  //           if (res) {
-  //             setIsLoggedIn(true);
-  //             setUserEmail(res.data.email);
-  //             navigate("/", {replace: true});
-  //           }
-  //         })
-  //         .catch((err) => {
-  //           console.log(err);
-  //         });
-  //   }
-  // }
-
-  // как было раньше
-  // function handleTokenCheck() {
-  //   if (localStorage.getItem("userId")){
-  //     const userId = localStorage.getItem("userId");
-  //     if (userId) {
-  //       api
-  //         .getUserInfo()
-  //         .then((userData) => {
-  //           setUserEmail(userData.email);
-  //           setIsLoggedIn(true);
-  //           navigate("/", {replace: true});
-  //         })
-  //         .catch((err) => {
-  //             localStorage.removeItem("userId");
-  //             console.log(err);
-  //         });
-  //     };
-  //   };
-  // };
-
-
 
   function handleSignOut() {
     auth
@@ -204,8 +163,6 @@ function App() {
   const [userEmail, setUserEmail] = React.useState("");
   
   React.useEffect(() => {
-    // const userId = localStorage.getItem("userId");
-    // if (userId) {
       auth.checkToken()
           .then((res) => {
               localStorage.setItem("userId", res._id);
@@ -234,33 +191,6 @@ function App() {
         });
     }
     }, [isLoggedIn]);
-
-
-  // React.useEffect(() => {
-  //   if(isLoggedIn) {
-  //       api
-  //           .getInitialCards()
-  //           .then((initialCards) => {
-  //               setCards(initialCards);
-  //           })
-  //           .catch((err) => {
-  //               console.log(err);
-  //           });
-  //         }
-  //   }, [isLoggedIn]);
-
-  // React.useEffect(() => {
-  //   if(isLoggedIn) {
-  //   api
-  //       .getUserInfo()
-  //       .then((userData) => {
-  //         setCurrentUser(userData);
-  //       })
-  //       .catch((err) => {
-  //           console.log(err);
-  //       });
-  //     }
-  // },[]);
 
 
   return (

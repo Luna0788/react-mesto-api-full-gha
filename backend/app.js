@@ -8,6 +8,7 @@ const { login, createUser, logout } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const error = require('./middlewares/error');
 const { validationLogin, validationCreateUser } = require('./middlewares/validation');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./errors/NotFoundError');
 
 const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
@@ -20,6 +21,8 @@ mongoose.connect(DB_URL);
 
 app.use(cors);
 
+app.use(requestLogger);
+
 app.get('/signout', logout);
 app.post('/signin', validationLogin, login);
 app.post('/signup', validationCreateUser, createUser);
@@ -30,6 +33,8 @@ app.use(router);
 app.use('/', (req, res, next) => {
   next(new NotFoundError('Такой страницы не существует'));
 });
+
+app.use(errorLogger);
 
 app.use(errors());
 

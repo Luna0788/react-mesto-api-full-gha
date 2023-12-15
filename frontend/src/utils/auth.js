@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:3001';
+export const BASE_URL = 'http://localhost:3000';
 // export  { register, authorize, checkToken };
 export  { register, authorize, signout, checkToken };
 

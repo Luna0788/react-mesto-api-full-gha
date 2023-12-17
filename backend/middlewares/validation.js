@@ -32,7 +32,7 @@ module.exports.validationUpdateUser = celebrate({
 
 module.exports.validationUpdateAvatar = celebrate({
   body: Joi.object().keys({
-    avatar: Joi.string().pattern(/^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,8})([/\w .-]*)*\/?$/),
+    avatar: Joi.string().pattern(/^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,8})([/\w .-]*)*\/?$/).required(),
   }),
 });
 

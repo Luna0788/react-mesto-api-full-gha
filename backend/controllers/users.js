@@ -59,10 +59,10 @@ module.exports.getUser = (req, res, next) => {
     .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new BadRequestError('Некорректный id пользователя.'));
+        return next(new BadRequestError('Некорректный id пользователя.'));
       }
 
-      next(err);
+      return next(err);
     });
 };
 
@@ -72,9 +72,7 @@ module.exports.getCurrentUser = (req, res, next) => {
   User.findById(userId)
     .orFail(new NotFoundError('Текущий пользователь не найден.'))
     .then((user) => res.send(user))
-    .catch((err) => {
-      next(err);
-    });
+    .catch((err) => next(err));
 };
 
 // update user info
@@ -87,9 +85,9 @@ module.exports.updateUser = (req, res, next) => {
     .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError('Некорректный id пользователя'));
+        return next(new BadRequestError('Некорректный id пользователя'));
       }
-      next(err);
+      return next(err);
     });
 };
 
@@ -102,10 +100,10 @@ module.exports.updateAvatar = (req, res, next) => {
     .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError('Некорректный id пользователя'));
+        return next(new BadRequestError('Некорректный id пользователя'));
       }
 
-      next(err);
+      return next(err);
     });
 };
 
